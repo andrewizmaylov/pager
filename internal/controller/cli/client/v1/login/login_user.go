@@ -46,5 +46,5 @@ func main() {
 		log.Fatalf("User login error: %v", err)
 	}
 
-	fmt.Printf("User succesfuly logged In: %d\n", res.Id)
+	fmt.Printf("User succesfuly logged Id: %d, token %s\n", res.GetId(), res.GetToken())
 }

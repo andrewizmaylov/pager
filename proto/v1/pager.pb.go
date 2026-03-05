@@ -4,7 +4,7 @@
 // 	protoc        v5.29.3
 // source: proto/v1/pager.proto
 
-package pager
+package pagerv01
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -201,6 +201,58 @@ func (x *UserResponse) GetPassword() string {
 	return ""
 }
 
+type LoginUserResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Token         string                 `protobuf:"bytes,2,opt,name=token,proto3" json:"token,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LoginUserResponse) Reset() {
+	*x = LoginUserResponse{}
+	mi := &file_proto_v1_pager_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LoginUserResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LoginUserResponse) ProtoMessage() {}
+
+func (x *LoginUserResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_v1_pager_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LoginUserResponse.ProtoReflect.Descriptor instead.
+func (*LoginUserResponse) Descriptor() ([]byte, []int) {
+	return file_proto_v1_pager_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *LoginUserResponse) GetId() int32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *LoginUserResponse) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
 type SendMessageRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	From          int32                  `protobuf:"varint,1,opt,name=from,proto3" json:"from,omitempty"`
@@ -212,7 +264,7 @@ type SendMessageRequest struct {
 
 func (x *SendMessageRequest) Reset() {
 	*x = SendMessageRequest{}
-	mi := &file_proto_v1_pager_proto_msgTypes[3]
+	mi := &file_proto_v1_pager_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -224,7 +276,7 @@ func (x *SendMessageRequest) String() string {
 func (*SendMessageRequest) ProtoMessage() {}
 
 func (x *SendMessageRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_v1_pager_proto_msgTypes[3]
+	mi := &file_proto_v1_pager_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -237,7 +289,7 @@ func (x *SendMessageRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SendMessageRequest.ProtoReflect.Descriptor instead.
 func (*SendMessageRequest) Descriptor() ([]byte, []int) {
-	return file_proto_v1_pager_proto_rawDescGZIP(), []int{3}
+	return file_proto_v1_pager_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *SendMessageRequest) GetFrom() int32 {
@@ -274,7 +326,7 @@ type DeliveryToServerResponse struct {
 
 func (x *DeliveryToServerResponse) Reset() {
 	*x = DeliveryToServerResponse{}
-	mi := &file_proto_v1_pager_proto_msgTypes[4]
+	mi := &file_proto_v1_pager_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -286,7 +338,7 @@ func (x *DeliveryToServerResponse) String() string {
 func (*DeliveryToServerResponse) ProtoMessage() {}
 
 func (x *DeliveryToServerResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_v1_pager_proto_msgTypes[4]
+	mi := &file_proto_v1_pager_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -299,7 +351,7 @@ func (x *DeliveryToServerResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeliveryToServerResponse.ProtoReflect.Descriptor instead.
 func (*DeliveryToServerResponse) Descriptor() ([]byte, []int) {
-	return file_proto_v1_pager_proto_rawDescGZIP(), []int{4}
+	return file_proto_v1_pager_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *DeliveryToServerResponse) GetId() int32 {
@@ -346,7 +398,7 @@ type UserListRequest struct {
 
 func (x *UserListRequest) Reset() {
 	*x = UserListRequest{}
-	mi := &file_proto_v1_pager_proto_msgTypes[5]
+	mi := &file_proto_v1_pager_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -358,7 +410,7 @@ func (x *UserListRequest) String() string {
 func (*UserListRequest) ProtoMessage() {}
 
 func (x *UserListRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_v1_pager_proto_msgTypes[5]
+	mi := &file_proto_v1_pager_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -371,7 +423,7 @@ func (x *UserListRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserListRequest.ProtoReflect.Descriptor instead.
 func (*UserListRequest) Descriptor() ([]byte, []int) {
-	return file_proto_v1_pager_proto_rawDescGZIP(), []int{5}
+	return file_proto_v1_pager_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *UserListRequest) GetTotal() int64 {
@@ -397,7 +449,10 @@ const file_proto_v1_pager_proto_rawDesc = "" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x14\n" +
 	"\x05email\x18\x03 \x01(\tR\x05email\x12\x1a\n" +
-	"\bpassword\x18\x04 \x01(\tR\bpassword\"R\n" +
+	"\bpassword\x18\x04 \x01(\tR\bpassword\"9\n" +
+	"\x11LoginUserResponse\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x14\n" +
+	"\x05token\x18\x02 \x01(\tR\x05token\"R\n" +
 	"\x12SendMessageRequest\x12\x12\n" +
 	"\x04from\x18\x01 \x01(\x05R\x04from\x12\x0e\n" +
 	"\x02to\x18\x02 \x01(\x05R\x02to\x12\x18\n" +
@@ -409,12 +464,12 @@ const file_proto_v1_pager_proto_rawDesc = "" +
 	"\acontent\x18\x04 \x01(\tR\acontent\x12\x16\n" +
 	"\x06status\x18\x05 \x01(\tR\x06status\"'\n" +
 	"\x0fUserListRequest\x12\x14\n" +
-	"\x05total\x18\x01 \x01(\x03R\x05total2\x9c\x02\n" +
+	"\x05total\x18\x01 \x01(\x03R\x05total2\xa1\x02\n" +
 	"\x05Pager\x12A\n" +
-	"\fRegisterUser\x12\x1a.pager.RegisterUserRequest\x1a\x13.pager.UserResponse\"\x00\x12;\n" +
-	"\tLoginUser\x12\x17.pager.LoginUserRequest\x1a\x13.pager.UserResponse\"\x00\x12F\n" +
+	"\fRegisterUser\x12\x1a.pager.RegisterUserRequest\x1a\x13.pager.UserResponse\"\x00\x12@\n" +
+	"\tLoginUser\x12\x17.pager.LoginUserRequest\x1a\x18.pager.LoginUserResponse\"\x00\x12F\n" +
 	"\x13ListRegisteredUsers\x12\x16.pager.UserListRequest\x1a\x13.pager.UserResponse\"\x000\x01\x12K\n" +
-	"\vSendMessage\x12\x19.pager.SendMessageRequest\x1a\x1f.pager.DeliveryToServerResponse\"\x00B!Z\x1fgithub.com/andrewizmaylov/pagerb\x06proto3"
+	"\vSendMessage\x12\x19.pager.SendMessageRequest\x1a\x1f.pager.DeliveryToServerResponse\"\x00B*Z(github.com/andrewizmaylov/pager;pagerv01b\x06proto3"
 
 var (
 	file_proto_v1_pager_proto_rawDescOnce sync.Once
@@ -428,24 +483,25 @@ func file_proto_v1_pager_proto_rawDescGZIP() []byte {
 	return file_proto_v1_pager_proto_rawDescData
 }
 
-var file_proto_v1_pager_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_proto_v1_pager_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_proto_v1_pager_proto_goTypes = []any{
 	(*RegisterUserRequest)(nil),      // 0: pager.RegisterUserRequest
 	(*LoginUserRequest)(nil),         // 1: pager.LoginUserRequest
 	(*UserResponse)(nil),             // 2: pager.UserResponse
-	(*SendMessageRequest)(nil),       // 3: pager.SendMessageRequest
-	(*DeliveryToServerResponse)(nil), // 4: pager.DeliveryToServerResponse
-	(*UserListRequest)(nil),          // 5: pager.UserListRequest
+	(*LoginUserResponse)(nil),        // 3: pager.LoginUserResponse
+	(*SendMessageRequest)(nil),       // 4: pager.SendMessageRequest
+	(*DeliveryToServerResponse)(nil), // 5: pager.DeliveryToServerResponse
+	(*UserListRequest)(nil),          // 6: pager.UserListRequest
 }
 var file_proto_v1_pager_proto_depIdxs = []int32{
 	0, // 0: pager.Pager.RegisterUser:input_type -> pager.RegisterUserRequest
 	1, // 1: pager.Pager.LoginUser:input_type -> pager.LoginUserRequest
-	5, // 2: pager.Pager.ListRegisteredUsers:input_type -> pager.UserListRequest
-	3, // 3: pager.Pager.SendMessage:input_type -> pager.SendMessageRequest
+	6, // 2: pager.Pager.ListRegisteredUsers:input_type -> pager.UserListRequest
+	4, // 3: pager.Pager.SendMessage:input_type -> pager.SendMessageRequest
 	2, // 4: pager.Pager.RegisterUser:output_type -> pager.UserResponse
-	2, // 5: pager.Pager.LoginUser:output_type -> pager.UserResponse
+	3, // 5: pager.Pager.LoginUser:output_type -> pager.LoginUserResponse
 	2, // 6: pager.Pager.ListRegisteredUsers:output_type -> pager.UserResponse
-	4, // 7: pager.Pager.SendMessage:output_type -> pager.DeliveryToServerResponse
+	5, // 7: pager.Pager.SendMessage:output_type -> pager.DeliveryToServerResponse
 	4, // [4:8] is the sub-list for method output_type
 	0, // [0:4] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
@@ -464,7 +520,7 @@ func file_proto_v1_pager_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_v1_pager_proto_rawDesc), len(file_proto_v1_pager_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

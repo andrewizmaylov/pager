@@ -2,11 +2,11 @@ syntax = "proto3";
 
 package pager;
 
-option go_package = "github.com/andrewizmaylov/pager";
+option go_package = "github.com/andrewizmaylov/pager;pagerv01";
 
 service Pager {
   rpc RegisterUser (RegisterUserRequest) returns (UserResponse) {};
-  rpc LoginUser (LoginUserRequest) returns (UserResponse) {};
+  rpc LoginUser (LoginUserRequest) returns (LoginUserResponse) {};
   rpc ListRegisteredUsers (UserListRequest) returns (stream UserResponse) {};
   rpc SendMessage (SendMessageRequest) returns (DeliveryToServerResponse) {};
 }
@@ -27,6 +27,11 @@ message UserResponse {
   string name = 2;
   string email = 3;
   string password = 4;
+}
+
+message LoginUserResponse {
+  int32 id = 1;
+  string token = 2;
 }
 
 message SendMessageRequest {

@@ -46,7 +46,7 @@ func (s *server) RegisterUser(ctx context.Context, in *pb.RegisterUserRequest) (
 	return out, nil
 }
 
-func (s *server) LoginUser(ctx context.Context, in *pb.LoginUserRequest) (*pb.UserResponse, error) {
+func (s *server) LoginUser(ctx context.Context, in *pb.LoginUserRequest) (*pb.LoginUserResponse, error) {
 	user, ok := registeredUsers[in.Email]
 	if !ok {
 		return nil, status.Errorf(codes.NotFound, "user not found: %s", in.Email)
@@ -55,10 +55,9 @@ func (s *server) LoginUser(ctx context.Context, in *pb.LoginUserRequest) (*pb.Us
 		return nil, status.Errorf(codes.InvalidArgument, "check provided password: %s", in.Password)
 	}
 
-	out := &pb.UserResponse{
+	out := &pb.LoginUserResponse{
 		Id:    user.GetId(),
-		Name:  user.GetName(),
-		Email: user.GetEmail(),
+		Token:  in.GetEmail(),
 	}
 
 	log.Printf("User: id: %d, name: %s, email: %s, password: %s)", user.GetId(), user.GetName(), user.GetEmail(), user.GetPassword())

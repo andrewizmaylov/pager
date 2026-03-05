@@ -4,7 +4,7 @@
 // - protoc             v5.29.3
 // source: proto/v1/pager.proto
 
-package pager
+package pagerv01
 
 import (
 	context "context"
@@ -30,7 +30,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PagerClient interface {
 	RegisterUser(ctx context.Context, in *RegisterUserRequest, opts ...grpc.CallOption) (*UserResponse, error)
-	LoginUser(ctx context.Context, in *LoginUserRequest, opts ...grpc.CallOption) (*UserResponse, error)
+	LoginUser(ctx context.Context, in *LoginUserRequest, opts ...grpc.CallOption) (*LoginUserResponse, error)
 	ListRegisteredUsers(ctx context.Context, in *UserListRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[UserResponse], error)
 	SendMessage(ctx context.Context, in *SendMessageRequest, opts ...grpc.CallOption) (*DeliveryToServerResponse, error)
 }
@@ -53,9 +53,9 @@ func (c *pagerClient) RegisterUser(ctx context.Context, in *RegisterUserRequest,
 	return out, nil
 }
 
-func (c *pagerClient) LoginUser(ctx context.Context, in *LoginUserRequest, opts ...grpc.CallOption) (*UserResponse, error) {
+func (c *pagerClient) LoginUser(ctx context.Context, in *LoginUserRequest, opts ...grpc.CallOption) (*LoginUserResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UserResponse)
+	out := new(LoginUserResponse)
 	err := c.cc.Invoke(ctx, Pager_LoginUser_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -97,7 +97,7 @@ func (c *pagerClient) SendMessage(ctx context.Context, in *SendMessageRequest, o
 // for forward compatibility.
 type PagerServer interface {
 	RegisterUser(context.Context, *RegisterUserRequest) (*UserResponse, error)
-	LoginUser(context.Context, *LoginUserRequest) (*UserResponse, error)
+	LoginUser(context.Context, *LoginUserRequest) (*LoginUserResponse, error)
 	ListRegisteredUsers(*UserListRequest, grpc.ServerStreamingServer[UserResponse]) error
 	SendMessage(context.Context, *SendMessageRequest) (*DeliveryToServerResponse, error)
 	mustEmbedUnimplementedPagerServer()
@@ -113,7 +113,7 @@ type UnimplementedPagerServer struct{}
 func (UnimplementedPagerServer) RegisterUser(context.Context, *RegisterUserRequest) (*UserResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method RegisterUser not implemented")
 }
-func (UnimplementedPagerServer) LoginUser(context.Context, *LoginUserRequest) (*UserResponse, error) {
+func (UnimplementedPagerServer) LoginUser(context.Context, *LoginUserRequest) (*LoginUserResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method LoginUser not implemented")
 }
 func (UnimplementedPagerServer) ListRegisteredUsers(*UserListRequest, grpc.ServerStreamingServer[UserResponse]) error {
