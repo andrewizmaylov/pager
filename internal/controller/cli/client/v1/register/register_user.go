@@ -11,6 +11,7 @@ import (
 
 	pb "github.com/andrewizmaylov/pager/proto/v1"
 	"github.com/brianvoe/gofakeit/v6"
+	"golang.org/x/crypto/bcrypt"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
@@ -48,10 +49,12 @@ func main() {
 
 	defer conn.Close()
 
+	pwd, err := bcrypt.GenerateFromPassword([]byte(*password), bcrypt.DefaultCost)
+
 	res, err := c.RegisterUser(context.Background(), &pb.RegisterUserRequest{
 		Name:     *name,
 		Email:    *email,
-		Password: *password,
+		Password: string(pwd),
 	})
 
 	if err != nil {

@@ -7,8 +7,9 @@ import (
 	"log"
 	"net"
 
-	pb "github.com/andrewizmaylov/pager/proto/v1"
 	"github.com/andrewizmaylov/pager/internal/config"
+	pb "github.com/andrewizmaylov/pager/proto/v1"
+	"golang.org/x/crypto/bcrypt"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
@@ -31,9 +32,9 @@ var lastUserId int32 = 1
 
 func (s *server) RegisterUser(ctx context.Context, in *pb.RegisterUserRequest) (*pb.UserResponse, error) {
 	out := &pb.UserResponse{
-		Id:    lastUserId,
-		Name:  in.GetName(),
-		Email: in.GetEmail(),
+		Id:       lastUserId,
+		Name:     in.GetName(),
+		Email:    in.GetEmail(),
 		Password: in.GetPassword(),
 	}
 
@@ -47,17 +48,18 @@ func (s *server) RegisterUser(ctx context.Context, in *pb.RegisterUserRequest) (
 }
 
 func (s *server) LoginUser(ctx context.Context, in *pb.LoginUserRequest) (*pb.LoginUserResponse, error) {
-	user, ok := registeredUsers[in.Email]
+	user, ok := registeredUsers[in.GetEmail()]
 	if !ok {
 		return nil, status.Errorf(codes.NotFound, "user not found: %s", in.Email)
 	}
-	if user.Password != in.Password {
+
+	if err := bcrypt.CompareHashAndPassword([]byte(user.GetPassword()), []byte(in.GetPassword())); err != nil {
 		return nil, status.Errorf(codes.InvalidArgument, "check provided password: %s", in.Password)
 	}
 
 	out := &pb.LoginUserResponse{
 		Id:    user.GetId(),
-		Token:  in.GetEmail(),
+		Token: in.GetEmail(),
 	}
 
 	log.Printf("User: id: %d, name: %s, email: %s, password: %s)", user.GetId(), user.GetName(), user.GetEmail(), user.GetPassword())
