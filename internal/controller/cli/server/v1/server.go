@@ -8,13 +8,17 @@ import (
 	"net"
 
 	pb "github.com/andrewizmaylov/pager/proto/v1"
+	"github.com/andrewizmaylov/pager/internal/config"
+
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
 
+var cnfg = config.Mustload()
+
 var (
-	port = flag.Int("port", 50051, "The server port")
+	port = flag.Int("port", cnfg.GRPC.Port, "The server port")
 )
 
 var registeredUsers = make(map[string]*pb.UserResponse, 100)
@@ -42,7 +46,7 @@ func (s *server) RegisterUser(ctx context.Context, in *pb.RegisterUserRequest) (
 	return out, nil
 }
 
-func (s *server) LoginUser(ctx context.Context, in *pb.LoginUserRequest) (res *pb.UserResponse, err error) {
+func (s *server) LoginUser(ctx context.Context, in *pb.LoginUserRequest) (*pb.UserResponse, error) {
 	user, ok := registeredUsers[in.Email]
 	if !ok {
 		return nil, status.Errorf(codes.NotFound, "user not found: %s", in.Email)
@@ -52,13 +56,12 @@ func (s *server) LoginUser(ctx context.Context, in *pb.LoginUserRequest) (res *p
 	}
 
 	out := &pb.UserResponse{
-		Id:    res.GetId(),
-		Name:  res.GetName(),
-		Email: res.GetEmail(),
+		Id:    user.GetId(),
+		Name:  user.GetName(),
+		Email: user.GetEmail(),
 	}
 
-	fmt.Printf("ID: %d, Name: %s, Email: %s\n", res.GetId(), res.GetName(), res.GetEmail())
-
+	log.Printf("User: id: %d, name: %s, email: %s, password: %s)", user.GetId(), user.GetName(), user.GetEmail(), user.GetPassword())
 	return out, nil
 }
 

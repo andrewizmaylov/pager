@@ -3,9 +3,9 @@ package main
 import (
 	"context"
 	"flag"
-	"fmt"
 	"io"
 	"log"
+	"strconv"
 	"time"
 
 	pb "github.com/andrewizmaylov/pager/proto/v1"
@@ -15,19 +15,17 @@ import (
 
 var (
 	total = flag.Int64("total", -1, "Amount of users to get back")
-	addr  = flag.String("addr", "localhost:50051", "the address to connect to")
+	port  = flag.Int("port", 8080, "TCP port for connection")
 )
 
 func main() {
 	flag.Parse()
 
-	conn, err := grpc.NewClient(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	conn, err := grpc.NewClient("localhost:"+strconv.Itoa(*port), grpc.WithTransportCredentials(insecure.NewCredentials()))
 
 	if err != nil {
 		log.Fatalf("Could not connect to client %v", err)
 	}
-
-	fmt.Println("Connection OK")
 
 	c := pb.NewPagerClient(conn)
 
@@ -38,7 +36,7 @@ func main() {
 	defer cancel()
 
 	stream, err := c.ListRegisteredUsers(ctx, &pb.UserListRequest{
-		Total:    *total,
+		Total: *total,
 	})
 
 	if err != nil {
